@@ -1,0 +1,31 @@
+{
+  "name": "devjobs",
+  "version": "1.0.0",
+  "description": "Portal DevJobs con NodeJs, Handlebars, Mongoose",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chazarodev/devjobs_nodejs.git"
+  },
+  "keywords": [
+    "Nodejs",
+    "Handlebars",
+    "Mongoose"
+  ],
+  "author": "Alberto Cházaro Romero",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chazarodev/devjobs_nodejs/issues"
+  },
+  "homepage": "https://github.com/chazarodev/devjobs_nodejs#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^5.3.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}
