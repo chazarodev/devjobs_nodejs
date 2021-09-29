@@ -4,7 +4,9 @@
   "description": "Portal DevJobs con NodeJs, Handlebars, Mongoose",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./index"
+    "dev": "nodemon ./index",
+    "start": "concurrently \"npm run dev\" \"npm run watch\" ",
+    "watch": "webpack -w --mode development"
   },
   "repository": {
     "type": "git",
@@ -22,10 +24,23 @@
   },
   "homepage": "https://github.com/chazarodev/devjobs_nodejs#readme",
   "dependencies": {
+    "concurrently": "^6.2.2",
+    "connect-mongo": "^4.6.0",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "express-handlebars": "^5.3.4"
+    "express-handlebars": "^5.3.4",
+    "express-session": "^1.17.2",
+    "mongoose": "^6.0.8",
+    "shortid": "^2.2.16",
+    "slug": "^5.1.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.13"
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.15.6",
+    "babel-loader": "^8.2.2",
+    "nodemon": "^2.0.13",
+    "webpack": "^5.55.0",
+    "webpack-cli": "^4.8.0"
   }
 }
