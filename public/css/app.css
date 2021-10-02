@@ -74,8 +74,6 @@ h3 {
 
 .editar-btn {
     margin-top: 4rem;
-}
-.editar-btn {
     flex: 0 0 auto;
     text-align: center;
 }
