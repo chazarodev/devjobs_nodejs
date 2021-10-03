@@ -458,7 +458,7 @@ p.candidatos {
 }
 .alerta {
     padding: 1rem 3rem; 
-    color: white;
+    color: #C80045;
     font-size: 2.2rem;
     text-align: center;
     text-transform: uppercase;
@@ -469,7 +469,7 @@ p.candidatos {
     background-color: #00C897;
 }
 .error {
-    background-color: #C80045;
+    background-color: #100E17;
 }
 .desaparecer {
     opacity: 0;
