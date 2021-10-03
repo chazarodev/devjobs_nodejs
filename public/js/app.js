@@ -1,3 +1,6 @@
+import axios from 'axios';
+import Swal from 'sweetalert2'
+
 document.addEventListener('DOMContentLoaded', () => {
     const skills = document.querySelector('.lista-conocimientos');
 
@@ -13,6 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
         skills.addEventListener('click', agregarSkills);
         //Llamar función cuando estemos en editar
         skillsSeleccionados();
+    }
+
+    const vacantesListado = document.querySelector('.panel-administracion');
+
+    if (vacantesListado) {
+        vacantesListado.addEventListener('click', accionesListado);
     }
 })
 
@@ -56,4 +65,57 @@ const limpiarAlertas = () => {
             clearInterval(interval);
         }
     }, 3000);
+}
+
+//Eliminar vacantes
+const accionesListado = e => {
+    // e.preventDefault();
+
+    //eliminar por axios
+    const url = `${location.origin}/vacantes/eliminar/${e.target.dataset.eliminar}`
+
+    console.log(url);
+
+    if (e.target.dataset.eliminar) {
+        //eliminar por medio de axios
+        Swal.fire({
+            title: 'Deseas eliminar la vacante?',
+            text: "Una vez eliminada no se podrá recuperar!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminar!',
+            cancelButtonText: 'No, cancelar'
+          }).then((result) => {
+            if (result.isConfirmed) {
+
+                //enviar la petción por axios
+                const url = `${location.origin}/vacantes/eliminar/${e.target.dataset.eliminar}`;
+
+                //Axios para eliminar el registro
+                axios.delete(url, {params: {url}})
+                    .then(function(respuesta){
+                        if (respuesta.status === 200) {
+                            Swal.fire(
+                                'Eliminada!',
+                                respuesta.data,
+                                'success'
+                            )
+                            //Eliminar del dom
+                            e.target.parentElement.parentElement.parentElement.removeChild(e.target.parentElement.parentElement);
+                        }
+                    })
+                    .catch(() => {
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Hubo un error',
+                            text: 'No se pudo eliminar la vacante'
+                        });
+                    });
+            }
+        })
+    } else if (e.target.tagName === 'A') {
+        window.location.href = e.target.href;
+    }
 }
