@@ -59,5 +59,62 @@ exports.crearUsuario = async (req, res, next) => {
 exports.formIniciarSesion = (req, res) => {
     res.render('iniciar-sesion', {
         nombrePagina: 'Iniciar Sesión devJobs'
-    })
+    });
+}
+
+//Form editar el perfil
+exports.formEditarPerfil = (req, res) => {
+    res.render('editar-perfil', {
+        nombrePagina: 'Edita tu perfil en devJobs',
+        usuario: req.user.toObject(),
+        cerrarSesion: true,
+        nombre: req.user.nombre
+    }); 
+}
+
+//Guardar cambios en editar perfil
+exports.editarPerfil = async (req, res) => {
+    const usuario = await Usuarios.findById(req.user._id);
+    
+    usuario.nombre = req.body.nombre;
+    usuario.email = req.body.email;
+
+    if (req.body.password) {
+        usuario.password = req.body.password
+    }
+
+    await usuario.save();
+
+    req.flash('correcto', "Los cambios fueron guardados correctamente");
+    //redireccionar
+    res.redirect('/administracion');
+}
+
+//Sanitizar formulario de editar perfil
+exports.validarPerfil = (req, res, next) => {
+    //Sanitizar
+    req.sanitizeBody('nombre').escape();
+    req.sanitizeBody('email').escape();
+    if (req.body.password) {
+        req.sanitizeBody('password').escape();
+    }
+    //Validar
+    req.checkBody('nombre', 'El nombre no puede ir vacío').notEmpty();
+    req.checkBody('email', 'El email no puede ir vacío').notEmpty();
+
+    const errores = req.validationErrors();
+
+    if (errores) {
+        req.flash('error', errores.map(error => error.msg));
+        res.render('editar-perfil', {
+            nombrePagina: 'Edita tu perfil en devJobs',
+            usuario: req.user.toObject(),
+            cerrarSesion: true,
+            nombre: req.user.nombre,
+            mensajes: req.flash()
+        }); 
+        
+    }
+
+    next();
 }
