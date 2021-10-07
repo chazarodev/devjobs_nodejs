@@ -201,13 +201,16 @@ exports.contactar = async (req, res, next) => {
 }
 
 exports.mostrarCandidatos = async (req, res, next) => {
-    const vacante = await Vacante.findById(req.params.id);
+    // console.log(req.params.id)
+    const vacante = await Vacante.findById(req.params.id).lean();
 
     if (vacante.autor === req.user._id.toString()) {
         return next();
     }
 
     if (!vacante) return next();
+
+    console.log(vacante);
 
     res.render('candidatos', {
         nombrePagina: `Candidatos - Vacante - ${vacante.titulo}`,

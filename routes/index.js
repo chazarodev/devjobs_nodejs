@@ -83,7 +83,7 @@ module.exports = () => {
     //Muestra los candidatos por vacante
     router.get('/candidatos/:id',
         authController.verificarUsuario,
-        vacanteController.mostrarCandidtos
+        vacanteController.mostrarCandidatos
     );
 
     return router;
