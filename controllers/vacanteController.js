@@ -210,7 +210,7 @@ exports.mostrarCandidatos = async (req, res, next) => {
 
     if (!vacante) return next();
 
-    console.log(vacante);
+    // console.log(vacante);
 
     res.render('candidatos', {
         nombrePagina: `Candidatos - Vacante - ${vacante.titulo}`,
